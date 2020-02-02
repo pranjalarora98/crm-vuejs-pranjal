@@ -28,7 +28,7 @@
       <h3>Lead ID: {{ leadkasaaman.leadId }}</h3>
       <h3>Lead Name: {{ leadkasaaman.leadName }}</h3>
       <h3>Lead email: {{ leadkasaaman.leadEmail }}</h3>
-      <h3>Post Image/Video:</h3>
+      <h3>Post Image:</h3>
       <!-- <div class="extra">
       <input class ="first" type="file" @change="onFileSelected($event)" />
       <br/>
@@ -36,8 +36,9 @@
       </div> -->
       <Upload1/>
       <h3>Post Description:</h3>
-      <input class ="second" type="text">
-          <button type="submit">SUBMIT</button>
+      <input class ="second" type="text" name="comments" v-model="comments">
+      <button name="close" @click="closelead()">CLOSE LEAD</button>
+          <!-- <input type="submit"  value="Submit" @click="sendDetailsToDB"/> -->
     </div>
    
   </div>
@@ -83,6 +84,23 @@ export default {
         // eslint-disable-next-line no-console
         console.log(res)
       });
+    },
+    closelead(){
+        axios.post("http://172.16.20.161:8090/marketingAgent/uploadComments" , {
+            leadId:localStorage.getItem("leadid"),
+            comment:this.comments,
+            image:localStorage.getItem('imgUrl'),
+            video:"null",
+            document:"null"
+        }).then(res=>{
+            // eslint-disable-next-line no-console
+            console.log(res.data)
+        })
+        axios.get("http://172.16.20.161:8090/marketingAgent/closeLead/" + localStorage.getItem('leadid')).
+        then(res=>{
+            // eslint-disable-next-line no-console
+            console.log(res.data)
+        })
     }
   }
 };

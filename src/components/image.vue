@@ -1,7 +1,6 @@
 <template>
   <div>
     <div >
-      <p>Upload an image :</p>
       <input type="file" @change="previewImage" >
     </div>
     <div>
@@ -42,6 +41,7 @@ export default {
         storageRef.snapshot.ref.getDownloadURL().then((url)=>{
           this.picture =url;
           window.console.log(this.picture)
+          localStorage.setItem("imgUrl",this.picture)
         });
       }
       );

@@ -1,25 +1,4 @@
 <template>
-<!-- <div>
-<h1>ADD SERVICE AGENT</h1>
-  <div id=“login3”>
-      <br><br>
-<form name=“maForm” class="login4">
-          <h1 class="register1">Register here</h1>
-
-        <input type=“text” placeholder="username" name="username" v-model="username" required/>
-        <br />
-        <br />
-        <input type="text" placeholder="enter email" name=“email” v-model="email" required/>
-        <br />
-        <br />
-        <input type=“password” placeholder="password" name=“pwd” v-model="pwd" required/>
-        <br><br>
-        <button @click="registerServiceAgent()"> REGISTER</button>
-
-      </form>
-<br>
-  </div>
-</div> -->
 
 <div>
     <h1>ADD SERVICE AGENT</h1>

@@ -182,7 +182,7 @@ export default new Vuex.Store({
       //let test="lehsun"
       const auth = {
         headers: {
-          Authorization: localStorage.getItem('accessTokenMA')
+          token: localStorage.getItem('accessTokenMA')
         }
       }
       window.console.log(localStorage.getItem('accessTokenMA'))
