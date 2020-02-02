@@ -175,7 +175,11 @@ assignSupportAgents() {
 },
 getLeadForMarketAgent({ commit } = {}) {
   //window.console.log(localStorage.getItem(“accessTokenMA”))
-  axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId/'+localStorage.getItem("accessTokenMA")
+  axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId',{
+    headers:{
+      'token':localStorage.getItem("accessTokenMA")
+    }
+  }
   ).then(
     res => {
       commit('SET_LEAD_LIST', res.data)

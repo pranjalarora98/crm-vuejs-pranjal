@@ -19,9 +19,9 @@
         <option value selected disabled>Choose here</option>
         <option
           v-for="l in leadList1"
-          v-bind:key="l.subCategoryId"
-          v-bind:value="l.subCategoryId"
-        >{{l.subCategoryDetails}}</option>
+          v-bind:key="l.leadId"
+          v-bind:value="l.leadId"
+        >{{l.leadName}}</option>
       </select>
     </div>
     <div class="leadDetails">
