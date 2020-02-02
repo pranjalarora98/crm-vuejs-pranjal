@@ -57,6 +57,7 @@ export default {
       //window.console.log(localStorage.getItem("ticketId")+" "+sa_id);
       localStorage.setItem("supportAgentId", sa_id);
       this.$store.dispatch("assignSupportAgents");
+      alert("Assignment successful!")
     },
     onSelected(event) {
       localStorage.setItem("ticketId", event.target.value);

@@ -95,6 +95,7 @@ export default {
         }).then(res=>{
             // eslint-disable-next-line no-console
             console.log(res.data)
+            alert("Lead has been closed!")
         })
         axios.get("http://172.16.20.161:8090/marketingAgent/closeLead/" + localStorage.getItem('leadid')).
         then(res=>{

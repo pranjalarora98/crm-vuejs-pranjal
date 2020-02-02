@@ -45,6 +45,7 @@ export default {
         });
       }
       );
+      alert("Image has been uploaded!");
     }
   }
 }

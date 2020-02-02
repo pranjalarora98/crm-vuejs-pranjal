@@ -52,6 +52,7 @@ export default {
               docs: "null"
           })
           axios.get("http://172.16.20.161:8090/supportAgent/closeTicket/"+localStorage.getItem("xyz"))
+          alert("Current ticket has been closed!")
       }
   }
 };

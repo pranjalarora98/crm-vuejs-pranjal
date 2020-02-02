@@ -65,6 +65,7 @@ export default {
     },
     passToDb() {
       this.$store.dispatch("send");
+      alert("Submitted!")
     }
   },
   computed: {

@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     registrationSuccess() {
-      window.console.log("registration success");
+      alert("Registration success!")
     },
     registerMASuccess() {
       let marketingAgentId = localStorage.getItem("marketAgentUserId");
