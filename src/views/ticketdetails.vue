@@ -6,20 +6,17 @@
       <span>{{ticketDetails.ticketId}}</span>
       <h3>Ticket source:</h3>
       {{ticketDetails.source}}
-      <h3>Image URL:</h3>
-      {{ticketDetails.postImageUrl}}
-      <h3>Video URL:</h3>
-      {{ticketDetails.postVideoUrl}}
       <h3>Post Description:</h3>
       {{ticketDetails.postDesc}}
       <h3>Count of Dislikes:</h3>
       {{ticketDetails.countOfDislike}}
       <h3>Comments:</h3>
       <br/>
-      <textarea rows="10" cols="30"></textarea>
+      <textarea rows="10" cols="30" v-model="comments" name="comments"></textarea>
       <br />
       <uploadimage></uploadimage>
-      <button @click="(router.push )">Close</button>
+      <!-- <button @click="(router.push )">Close</button> -->
+      <button name="closeLead" @click="closeTicket()"> CLOSE TICKET </button>
     </div>
     <navbar></navbar>
   </div>
@@ -29,6 +26,7 @@
 import navbar from "../components/navbar.vue";
 import uploadimage from "../components/image.vue";
 import { mapGetters } from "vuex";
+import axios from 'axios';
 export default {
   name: "ticketdetails",
   components: {
@@ -43,6 +41,18 @@ export default {
     ticketDetails() {
         return this.results;
     }
+  },
+  methods:{
+      closeTicket(){
+          axios.post("http://172.16.20.161:8090/supportAgent/uploadComments" , {
+              ticketId: localStorage.getItem("xyz"),
+              comments: this.comments,
+              images: localStorage.getItem('imgUrl'),
+              video: "null",
+              docs: "null"
+          })
+          axios.get("http://172.16.20.161:8090/supportAgent/closeTicket/"+localStorage.getItem("xyz"))
+      }
   }
 };
 </script>

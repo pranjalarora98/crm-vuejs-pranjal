@@ -30,10 +30,11 @@ export default {
                 'fcmToken':'null'
             }).then(function(response){
             localStorage.setItem('accessTokenSA',response.data.data.accessToken)
+            // this.$store.dispatch("loginWithSupportAgent")
+            setTimeout(function(){window.location.href='http://localhost:8080/support'},1000)
 
         })
-            this.$router.push('/Support')
-            
+        //   this.$store.dispatch("loginWithSupportAgent")  
         }
     }
 

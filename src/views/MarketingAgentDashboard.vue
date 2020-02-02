@@ -9,7 +9,7 @@
         <!-- <li>
           <a class="logout" href="#">Logout</a>
         </li> -->
-                 <a class="logout" href="#"><h2>Logout</h2></a>
+                 <a class="logout" @click="logout()"><h2>Logout</h2></a>
         
       </ul>
       
@@ -101,6 +101,8 @@ export default {
             // eslint-disable-next-line no-console
             console.log(res.data)
         })
+    },logout(){
+        setTimeout(function(){window.location.href='http://localhost:8080/loginmarketingagent'},1000);
     }
   }
 };

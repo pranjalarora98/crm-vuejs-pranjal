@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -95,21 +96,33 @@ export default new Vuex.Store({
 
 
     details({ commit } = {}) {
-      axios.get("http://10.177.68.205:8090/supportAgent/getTicketById/" + localStorage.getItem("xyz"))
+      axios.get("http://172.16.20.161:8090/supportAgent/getTicketById/" + localStorage.getItem("xyz"))
         .then(res => {
           window.console.log(res.data);
           commit('setdetails', res.data)
         })
     },
     lists({ commit }) {
-      axios.get("http://10.177.68.205:8090/supportAgent/getTicketsBySAId/1")
+      let auth = {
+        headers: {
+          token: localStorage.getItem('accessTokenSA')
+        }
+      }
+      axios.get("http://172.16.20.161:8090/supportAgent/getTicketsBySAId/",auth)
         .then(res => {
           commit('setticketdetails', res.data)
+          // console.log(res.data)
+          localStorage.setItem("xyz",res.data.ticketId)
         })
-
+        
     },
     resolved({ commit }) {
-      axios.get("http://10.177.68.205:8090/supportAgent/getCountOfTickets/1")
+      const auth = {
+        headers:{
+            token: localStorage.getItem('accessTokenSA')
+        }
+    }
+      axios.get("http://172.16.20.161:8090/supportAgent/getCountOfTickets/",auth)
         .then(res => {
           commit('setresandpen', res.data)
         })
@@ -196,7 +209,19 @@ export default new Vuex.Store({
       .then(res=>{
           commit('GET_LEAD_DETAILS',res.data)
       })
-    }
+    },
+    // loginWithSupportAgent({commit}={}){
+    //     const auth = {
+    //         headers:{
+    //             token: localStorage.getItem('accessTokenSA')
+    //         }
+    //     }
+    //     axios.get('http://172.16.20.161:8090/supportAgent/',auth).then(res=>{
+    //         // eslint-disable-next-line no-console
+    //         console.log(res.data)
+    //         commit
+    //     })
+    // }
   },
 
   modules: {

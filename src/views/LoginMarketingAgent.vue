@@ -18,6 +18,7 @@
 </template>
 <script>
 import axios from 'axios';
+// import func from '../../vue-temp/vue-editor-bridge';
 export default {
     methods:{
         loginMarketingAgent(){
@@ -31,6 +32,8 @@ export default {
 
         })
             // this.$router.push('/marketingagent')
+            setTimeout(function(){
+                window.location.href='http://localhost:8080/marketingagent';},2000);
             
         }
     }
