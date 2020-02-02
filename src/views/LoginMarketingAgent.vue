@@ -30,7 +30,7 @@ export default {
             localStorage.setItem('accessTokenMA',response.data.data.accessToken)
 
         })
-            this.$router.push('/marketingagent')
+            // this.$router.push('/marketingagent')
             
         }
     }

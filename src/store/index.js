@@ -11,7 +11,7 @@ export default new Vuex.Store({
     listOfOpenTickets: [],
     serviceAgentDetails: [],
     leadList: [],
-    leadKaDetail: {},
+    leadKaDetail: [],
     results: [],
     ticketlists: [],
     numberdata: []
@@ -59,72 +59,72 @@ export default new Vuex.Store({
         }
       )
     },
-    registerSA(){
-      axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent',{
-        'supportAgentId':localStorage.getItem('serviceAgentUserId'),
+    registerSA() {
+      axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent', {
+        'supportAgentId': localStorage.getItem('serviceAgentUserId'),
         // ‘supportAgentId’:‘hee hee hee’,
-        'supportAgentName':localStorage.getItem('name'),
-        'supportAgentEmail':localStorage.getItem('email'),
-        'ticketsResolved':0,
-        'ticketsPending':0
-    },
-    )
-  },
-
-  register({ commit }, { params, success }) {
-    window.console.log(params.data);
-    fetch('http://172.16.20.121:8080/controller/register/', {
-      headers: {
-        "Content-Type": "application/json"
+        'supportAgentName': localStorage.getItem('name'),
+        'supportAgentEmail': localStorage.getItem('email'),
+        'ticketsResolved': 0,
+        'ticketsPending': 0
       },
-      method: "POST",
-      body: JSON.stringify(params.data)
-    })
-      .then(res => {
-        return res.json()
+      )
+    },
+
+    register({ commit }, { params, success }) {
+      window.console.log(params.data);
+      fetch('http://172.16.20.121:8080/controller/register/', {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(params.data)
       })
-      .then(res => {
-        window.console.log(res)
-        localStorage.setItem('marketAgentUserId', res.data.userId)
-        localStorage.setItem('maEmail', res.data.emailAddress)
-        localStorage.setItem('maname', res.data.name)
-        success && success(res)
-      })
-    commit
-  },
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          window.console.log(res)
+          localStorage.setItem('marketAgentUserId', res.data.userId)
+          localStorage.setItem('maEmail', res.data.emailAddress)
+          localStorage.setItem('maname', res.data.name)
+          success && success(res)
+        })
+      commit
+    },
 
 
-  details({ commit } = {}) {
-    axios.get("http://10.177.68.205:8090/supportAgent/getTicketById/" + localStorage.getItem("xyz"))
-      .then(res => {
-        window.console.log(res.data);
-        commit('setdetails', res.data)
-      })
-  },
-  lists({ commit }) {
-    axios.get("http://10.177.68.205:8090/supportAgent/getTicketsBySAId/1")
-      .then(res => {
-        commit('setticketdetails', res.data)
-      })
+    details({ commit } = {}) {
+      axios.get("http://10.177.68.205:8090/supportAgent/getTicketById/" + localStorage.getItem("xyz"))
+        .then(res => {
+          window.console.log(res.data);
+          commit('setdetails', res.data)
+        })
+    },
+    lists({ commit }) {
+      axios.get("http://10.177.68.205:8090/supportAgent/getTicketsBySAId/1")
+        .then(res => {
+          commit('setticketdetails', res.data)
+        })
 
-  },
-  resolved({ commit }) {
-    axios.get("http://10.177.68.205:8090/supportAgent/getCountOfTickets/1")
-      .then(res => {
-        commit('setresandpen', res.data)
-      })
-  },
+    },
+    resolved({ commit }) {
+      axios.get("http://10.177.68.205:8090/supportAgent/getCountOfTickets/1")
+        .then(res => {
+          commit('setresandpen', res.data)
+        })
+    },
 
 
 
-  registerMA({commit}, {params, success}) {
-    axios.post('http://172.16.20.161:8090/marketingAgent/addMarketAgent', params.data)
-    .then(res => {
-      window.console.log(res)
-      success && success(res)
-    })
-    commit
-  },
+    registerMA({ commit }, { params, success }) {
+      axios.post('http://172.16.20.161:8090/marketingAgent/addMarketAgent', params.data)
+        .then(res => {
+          window.console.log(res)
+          success && success(res)
+        })
+      commit
+    },
 
 
     sendId({ commit } = {}) {
@@ -145,91 +145,95 @@ export default new Vuex.Store({
     },
     send() {
 
-      axios.post("http://172.16.20.161:8090/marketingAgent/assignMarketAgent",{
-      'marketingAgentId':localStorage.getItem("mid"), 
-       'leadId':localStorage.getItem("lid")
+      axios.post("http://172.16.20.161:8090/marketingAgent/assignMarketAgent", {
+        'marketingAgentId': localStorage.getItem("mid"),
+        'leadId': localStorage.getItem("lid")
       })
       alert("DONE!")
     },
-getOpenTickets({ commit } = {}) {
-  axios.get("http://172.16.20.161:8090/supportAgent/getTicketList").then(
-    res => {
-      commit("SET_OPEN_TICKETS", res.data)
+    getOpenTickets({ commit } = {}) {
+      axios.get("http://172.16.20.161:8090/supportAgent/getTicketList").then(
+        res => {
+          commit("SET_OPEN_TICKETS", res.data)
+        }
+      )
+    },
+    getSupportAgents({ commit } = {}) {
+      axios.get("http://172.16.20.161:8090/supportAgent/getSAList").then(
+        res => {
+          commit("SET_SERVICE_AGENT", res.data)
+        }
+      )
+    },
+    assignSupportAgents() {
+      let x = localStorage.getItem("ticketId");
+      let y = localStorage.getItem("supportAgentId")
+      axios.post("http://172.16.20.161:8090/supportAgent/assignTicket", {
+        "supportAgentId": y,
+        "ticketId": x
+      })
+    },
+
+
+
+
+    getLeadForMarketAgent({commit}={}) {
+      //window.console.log(localStorage.getItem(“accessTokenMA”))
+      //let test="lehsun"
+      const auth = {
+        headers: {
+          Authorization: localStorage.getItem('accessTokenMA')
+        }
+      }
+      window.console.log(localStorage.getItem('accessTokenMA'))
+      axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId',auth).then(res=>{
+        commit('SET_LEAD_LIST',res.data)
+    })
+    },
+
+    getLeadDetails({ commit } = {}) {
+      axios.get('http://172.16.20.161:8090/marketingAgent/getLeadByLeadId/' +localStorage.getItem("leadid"))
+      .then(res=>{
+          commit('GET_LEAD_DETAILS',res.data)
+      })
     }
-  )
-},
-getSupportAgents({ commit } = {}) {
-  axios.get("http://172.16.20.161:8090/supportAgent/getSAList").then(
-    res => {
-      commit("SET_SERVICE_AGENT", res.data)
+  },
+
+  modules: {
+
+  },
+  getters: {
+    categories(state) {
+      return state.categoryDetails;
+    },
+    leads(state) {
+      return state.leadDetails;
+    },
+    marketagents(state) {
+      return state.marketingAgentDetails;
+    },
+    openTickets(state) {
+      return state.listOfOpenTickets;
+    },
+    serviceAgents(state) {
+      return state.serviceAgentDetails;
+    },
+    leadList1(state) {
+      return state.leadList;
+    },
+    leadkasaaman(state) {
+      return state.leadKaDetail;
+    },
+
+    results(state) {
+      return state.results;
+    },
+    ticketlists(state) {
+      return state.ticketlists;
+    },
+    numberdata(state) {
+      return state.numberdata;
     }
-  )
-},
-assignSupportAgents() {
-  let x = localStorage.getItem("ticketId");
-  let y = localStorage.getItem("supportAgentId")
-  axios.post("http://172.16.20.161:8090/supportAgent/assignTicket",{
-    "supportAgentId":y,
-    "ticketId":x
-})
-},
-getLeadForMarketAgent({ commit } = {}) {
-  //window.console.log(localStorage.getItem(“accessTokenMA”))
-  axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId',{
-    headers:{
-      'token':localStorage.getItem("accessTokenMA")
-    }
+
   }
-  ).then(
-    res => {
-      commit('SET_LEAD_LIST', res.data)
-    }).catch(err => window.log.console(err))
-},
-getLeadDetails({ commit } = {}) {
-  axios.get('http://172.16.20.14:8085/api/allleads/' + localStorage.getItem("leadid")).then(
-    res => {
-      commit('GET_LEAD_DETAILS', res.data)
-    }
-  )
-  localStorage.removeItem("leadid");
-}
-  },
-
-modules: {
-
-},
-getters: {
-  categories(state) {
-    return state.categoryDetails;
-  },
-  leads(state) {
-    return state.leadDetails;
-  },
-  marketagents(state) {
-    return state.marketingAgentDetails;
-  },
-  openTickets(state) {
-    return state.listOfOpenTickets;
-  },
-  serviceAgents(state) {
-    return state.serviceAgentDetails;
-  },
-  leadList1(state) {
-    return state.leadList;
-  },
-  leadkasaaman(state) {
-    return state.leadKaDetail;
-  },
-
-  results(state) {
-    return state.results;
-  },
-  ticketlists(state) {
-    return state.ticketlists;
-  },
-  numberdata(state) {
-    return state.numberdata;
-  }
-
-}
 })

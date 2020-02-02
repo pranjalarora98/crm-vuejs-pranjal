@@ -1,54 +1,114 @@
 <template>
-<div>
+<!-- <div>
 <h1>ADD SERVICE AGENT</h1>
   <div id=“login3”>
       <br><br>
 <form name=“maForm” class="login4">
           <h1 class="register1">Register here</h1>
 
-        <input type=“text” placeholder=username name="username" v-model="username" required/>
+        <input type=“text” placeholder="username" name="username" v-model="username" required/>
         <br />
         <br />
-        <input type="text" placeholder=enteremail name=“email” v-model="email" required/>
+        <input type="text" placeholder="enter email" name=“email” v-model="email" required/>
         <br />
         <br />
-        <input type=“password” placeholder=password name=“pwd” v-model="pwd" required/>
+        <input type=“password” placeholder="password" name=“pwd” v-model="pwd" required/>
         <br><br>
         <button @click="registerServiceAgent()"> REGISTER</button>
 
       </form>
 <br>
   </div>
-</div>
+</div> -->
+
+<div>
+    <h1>ADD SERVICE AGENT</h1>
+    <div class="login">
+      <h1>Register here</h1>
+      <br />
+      <br />
+      <form name="maForm">
+        <input type="text" placeholder="username" name="username" v-model="username" required />
+        <br />
+        <br />
+        <input type="email" placeholder="enter email" name="email" v-model="email" required />
+        <br />
+        <br />
+        <input type="password" placeholder="password" name="pwd" v-model="pwd" required />
+        <br />
+      </form>
+      <br />
+      <button @click="registerServiceAgent()">REGISTER</button>
+    </div>
+  </div>
+
+
+
+
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+// export default {
+//     name:"addagent1",
+//     data: function(){
+//         return{
+//             saId: ''
+//         }
+//     },
+//     methods:{
+//         registerSASuccess(){
+//             this.$store.dispatch("registerSA")
+//         },
+//         registerServiceAgent(){
+//             axios.post("http://172.16.20.121:8080/controller/register/",{
+//                 'name':this.username,
+//                 'emailAddress':this.email,
+//                 'password':this.pwd
+//             }).then(function(response){
+//                 window.console.log(response),
+//                 localStorage.setItem('serviceAgentUserId',response.data.data.userId)
+//                 localStorage.setItem('name',response.data.data.name)
+//                 localStorage.setItem('email',response.data.data.emailAddress)
+//                 //this.saId = response.data.data.userId
+//             }).then(this.registerSASuccess)
+//         },
+//     },
+// };
+
+import axios from "axios";
 export default {
-    name:"addagent1",
-    data: function(){
-        return{
-            saId: ''
-        }
+  name: "addagent1",
+  data: function() {
+    return {
+      saId: ""
+    };
+  },
+  methods: {
+    registerSASuccess() {
+      this.$store.dispatch("registerSA");
     },
-    methods:{
-        registerSASuccess(){
-            this.$store.dispatch("registerSA")
-        },
-        registerServiceAgent(){
-            axios.post("http://172.16.20.121:8080/controller/register/",{
-                'name':this.username,
-                'emailAddress':this.email,
-                'password':this.pwd
-            }).then(function(response){
-                window.console.log(response),
-                localStorage.setItem('serviceAgentUserId',response.data.data.userId)
-                localStorage.setItem('name',response.data.data.name)
-                localStorage.setItem('email',response.data.data.emailAddress)
-                //this.saId = response.data.data.userId
-            }).then(this.registerSASuccess)
-        },
-    },
+    registerServiceAgent() {
+      axios
+        .post("http://172.16.20.121:8080/controller/register/", {
+          name: this.username,
+          emailAddress: this.email,
+          password: this.pwd
+        })
+        .then(function(response) {
+          window.console.log(response),
+            localStorage.setItem(
+              "serviceAgentUserId",
+              response.data.data.userId
+            );
+          localStorage.setItem("name", response.data.data.name);
+          localStorage.setItem("email", response.data.data.emailAddress);
+          //this.saId = response.data.data.userId
+        })
+        .then(this.registerSASuccess);
+    }
+  }
 };
+
 </script>
 <style scoped>
 .login4{

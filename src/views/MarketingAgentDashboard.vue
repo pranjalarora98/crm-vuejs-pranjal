@@ -22,9 +22,9 @@
           v-bind:key="l.leadId"
           v-bind:value="l.leadId"
         >{{l.leadName}}</option>
-      </select>
-    </div>
-    <div class="leadDetails">
+       </select> 
+     </div>
+    <div class="leadDetails"> 
       <h3>Lead ID: {{ leadkasaaman.leadId }}</h3>
       <h3>Lead Name: {{ leadkasaaman.leadName }}</h3>
       <h3>Lead email: {{ leadkasaaman.leadEmail }}</h3>
@@ -38,7 +38,6 @@
       <h3>Post Description:</h3>
       <input class ="second" type="text">
           <button type="submit">SUBMIT</button>
-
     </div>
    
   </div>
@@ -62,7 +61,7 @@ export default {
     ...mapGetters(["leadkasaaman"])
   },
   created() {
-    this.$store.dispatch("getLeadForMarketAgent", {});
+    this.$store.dispatch("getLeadForMarketAgent");
   },
   methods: {
     onchange(event) {
