@@ -11,6 +11,7 @@
       <!-- <button@click >open</button> -->
       <a @click="ticketslist(ticket.ticketId)">View</a>
       <hr />
+      <h1>bdhjhdhjvbdhjdhjvsfghavs7yferyfsdyksvdghsdh,gvdjlr jlrrtrt</h1>
     </div>
   </div>
 </template>
@@ -56,5 +57,6 @@ export default {
   margin-right: 25%;
   margin-top: 2%;
   background-color: rgb(233, 233, 247);
+  color:green;
 }
 </style>
